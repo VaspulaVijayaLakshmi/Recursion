@@ -1,0 +1,43 @@
+https://leetcode.com/problems/combination-sum/description/
+
+
+class Solution {
+public:
+    void helper(vector<int> &candidates ,vector<vector<int>> &res, vector<int> &temp, int target,int idx){
+      
+      if(idx == candidates.size()) {
+
+        if(target==0)  res.push_back(temp);
+
+        return ;
+      }
+
+     
+// take
+      if(candidates[idx]<=target){
+       temp.push_back(candidates[idx]);
+
+    //    number can be used unlimited number of times 
+       helper(candidates,res,temp,target-candidates[idx],idx);
+       temp.pop_back();
+      }
+
+// dont take
+      helper(candidates,res,temp,target,idx+1);
+ 
+
+
+    }
+    
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        
+       vector<vector<int>> res;
+       vector<int> temp;
+
+       helper(candidates, res, temp , target,0) ;
+
+       return res;
+    
+    }
+};
