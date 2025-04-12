@@ -1,0 +1,57 @@
+class Solution {
+public:
+
+     vector<vector<int>> dir = {{0,1},{0,-1},{-1,0},{1,0}};
+     
+     bool dfs( vector<vector<char>>& board,int x, int y, vector<vector<bool>> &vis,
+               string word, int idx){
+
+
+        if(x<0 || y<0 || x>= board.size() || y>=board[0].size())
+         return false;
+
+
+        if(board[x][y] != word[idx] || vis[x][y] == true)
+         return false; 
+
+        if(idx==word.size()-1) return true;
+
+        vis[x][y]= true;
+
+        for(int i=0;i<4;i++){
+
+           if( dfs(board, x + dir[i][0], y+dir[i][1] , vis, word ,idx+1)){
+              return true;
+            }
+        }
+        
+        vis[x][y] = false;
+        return false;
+
+    }
+     
+
+    bool exist(vector<vector<char>>& board, string word) {
+
+       int r= board.size();
+       int c = board[0].size();
+
+       vector<vector<bool>> vis(r,vector<bool>(c));
+
+       char strt = word[0];
+
+       for(int i=0;i<r;i++){
+        for(int j=0;j<c;j++){
+
+            if(board[i][j] == strt){
+                if(dfs(board,i,j,vis,word,0)){
+                  return true;
+                }
+            }
+        }
+
+       } 
+
+       return false;
+    }
+};
