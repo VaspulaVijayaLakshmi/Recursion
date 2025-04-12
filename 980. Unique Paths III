@@ -1,0 +1,79 @@
+class Solution {
+public:
+
+   int emptyCells=0;
+   vector<vector<int>> dir={{1,0},{-1,0},{0,1},{0,-1}};
+
+    int dfs(vector<vector<int>> &grid, vector<vector<bool>> &vis ,int x,int y,int m,int n){
+
+// boundary checks
+       if(x<0 || y<0 || x>=n || y>=m || vis[x][y]==true || grid[x][y] == -1 )
+        return 0;
+
+// reached dest and we have visited each empty cell once, then we increment path
+        if(grid[x][y] == 2 && emptyCells == 0) return 1;
+
+// we reached dest, but not visited each empty cell..dont count
+        if(grid[x][y]==2) return 0;
+
+// vis the cell,and decrease the count of empty cells, as we already visted one now
+        vis[x][y]= true;
+        emptyCells--;
+
+        int u = dfs(grid,vis,x+1,y,m,n);
+        int d = dfs(grid,vis,x-1,y,m,n);
+        int l = dfs(grid,vis,x,y+1,m,n);
+        int r = dfs(grid,vis,x,y-1,m,n); 
+
+        vis[x][y] = false;
+        emptyCells++;
+
+
+        return u+d+l+r;
+
+
+
+
+    }
+
+    int uniquePathsIII(vector<vector<int>>& grid) {
+
+        int n= grid.size();
+        int m= grid[0].size();
+        
+       vector<vector<bool>> vis(n, vector<bool>(m, false));
+
+
+       for(int i=0;i<n;i++)
+       for(int j=0;j<m;j++){
+
+        if(grid[i][j]==0)
+        emptyCells++;
+
+       }
+
+// strt cell, which s reprsented by '1'
+       emptyCells++;
+
+
+
+        for(int i=0;i<n;i++)
+         for(int j=0;j<m;j++){
+
+            if(grid[i][j] == 1 ){
+               return dfs(grid,vis,i,j,m,n);
+            }   
+         }       
+
+      return 0;
+        
+    }
+};
+
+
+
+// that walk over every non-obstacle square exactly once.
+
+//  in the path, we have to visit each and every cell
+
+// so i have to check first how mny empty cells are there..
