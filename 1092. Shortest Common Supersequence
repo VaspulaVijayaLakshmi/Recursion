@@ -1,0 +1,99 @@
+class Solution {
+public:
+    string shortestCommonSupersequence(string s, string t) {
+        
+//lcs
+        int n = s.size();
+        int m = t.size();
+        vector<vector<int>> dp(n+1, vector<int>(m+1,0));
+        //tabulation
+
+        //call
+        for(int i=1; i<=n; i++){
+            for(int j=1; j<=m; j++){
+
+              if(s[i-1]==t[j-1]) 
+                dp[i][j] = 1 + dp[i-1][j-1];
+
+
+	          else 
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+
+
+
+        int i=n, j=m;
+        string ans ="";
+
+        while(i>0 && j>0){
+            if(s[i-1] == t[j-1]){
+
+                // add once if chars are equal
+                ans += s[i-1];
+                i--; j--;
+            }
+
+
+            else if(dp[i-1][j] > dp[i][j-1]){
+                ans += s[i-1];
+                    i--;
+            }
+
+            else{
+                ans += t[j-1];
+                    j--;
+            }
+        }
+
+
+    //   add the extra chars, if any
+        while(i>0) { ans += s[i-1]; i--; }
+        while(j>0) { ans += t[j-1]; j--; }
+
+
+        reverse(ans.begin(), ans.end());
+        
+        return ans;
+
+
+    }
+};
+
+
+// str1 = "abac" - 4
+// str2 = "cab" - 3
+
+// longest common supersequnce would be : "abaccab"
+
+// but we need shortest common supersequnce
+
+// common subsequence - "ab" is the common sequence between these 2
+
+
+// so we need to add ab only once
+
+// now 3 we need to add just 2 char from - 1st str and 1 char from 2 nd str
+
+
+// same like print shortest common subsequence 
+
+// here we want to keep the elements which are not equal also
+
+//      ""   c     a     b
+// ""  
+
+// a     0    0    1.     1
+
+// b.    0    0.   1.     2
+
+// a     0.   0    1.     2
+
+// c     0.   1    1      2 
+
+
+// Then, I construct the Shortest Common Supersequence by:
+// Starting from the end of both strings and working backwards
+// If the characters from both strings match, I include it only once
+// If they differ, I include characters from both strings
+// Finally, I add any remaining characters from either string
