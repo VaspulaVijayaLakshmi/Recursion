@@ -1,0 +1,25 @@
+class Solution {
+public:
+
+
+    bool isSubsequence(string s, string t, int idx1,int idx2){
+
+        if(idx1 == s.size())
+          return true;
+
+        if(idx2 == t.size())
+           return false;  
+
+        if(s[idx1]==t[idx2])
+         return isSubsequence(s,t,idx1+1,idx2+1);
+
+
+        return isSubsequence(s,t,idx1,idx2+1); 
+    }
+
+    bool isSubsequence(string s, string t) {
+
+       return isSubsequence(s,t,0,0);
+        
+    }
+};
