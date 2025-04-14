@@ -23,3 +23,39 @@ int maximumNonAdjacentSum(vector<int> &nums){
     return maxSubsequence(nums,0);
 
 }
+
+
+
+
+dp
+
+
+
+#include <bits/stdc++.h> 
+
+
+
+
+int  dp[1001] ;
+
+int  maxSubsequence(vector<int> &nums,int idx){
+
+       if(idx >= nums.size()){
+        return 0;
+       }
+
+       if(dp[idx] != -1) return dp[idx];
+       
+       int include = nums[idx] + maxSubsequence(nums,idx+2);
+       int exclude = maxSubsequence(nums,idx+1);
+
+       return dp[idx]= max(include,exclude);
+
+    }
+
+int maximumNonAdjacentSum(vector<int> &nums){
+    // Write your code here.
+    memset(dp,-1,sizeof(dp));
+    return maxSubsequence(nums,0);
+
+}
