@@ -1,0 +1,32 @@
+class Solution {
+public:
+     void generateSubsets(vector<int>& nums,int currIndex,vector<int> res, vector<vector<int>> &powerSet){
+       
+        powerSet.push_back(res);
+          
+        for(int i=currIndex;i<nums.size();i++){
+          
+            if(i>currIndex  && nums[i]==nums[i-1]) 
+                continue;
+    
+        res.push_back(nums[i]);
+        generateSubsets(nums,i+1,res,powerSet);
+        res.pop_back();
+        
+    }
+       
+     }
+    
+    
+    
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        
+        sort(nums.begin(),nums.end());
+
+        vector<vector<int>> powerSet;
+        vector<int> res;
+        generateSubsets(nums,0,res,powerSet);
+        return powerSet;
+    }
+};
