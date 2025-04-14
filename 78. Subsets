@@ -1,3 +1,5 @@
+recursive
+
 class Solution {
 public:
     
@@ -31,3 +33,50 @@ public:
         
     }
 };
+
+
+
+
+
+
+
+
+iterative
+
+class Solution {
+public:
+
+    //  iterative
+    void generateSubsets(vector<int>& nums,vector<vector<int>> &res,
+                         vector<int> &temp,int currIdx){
+        
+
+       res.push_back(temp);
+
+    for(int i=currIdx;i<nums.size();i++){  
+
+       temp.push_back(nums[i]);
+       generateSubsets(nums,res,temp,i+1);   
+       temp.pop_back();
+
+    }
+
+    }
+
+    
+    vector<vector<int>> subsets(vector<int>& nums) {
+       
+         vector<vector<int>> res;
+         vector<int> temp;
+        
+        generateSubsets(nums,res,temp,0);
+        return res;
+        
+    }
+};
+
+
+
+
+
+
