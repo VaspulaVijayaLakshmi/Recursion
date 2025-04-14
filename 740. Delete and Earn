@@ -1,0 +1,117 @@
+Recursion
+TLE
+
+
+
+class Solution {
+public:
+
+    int maxPoints=0;
+    void deleteandEarn(vector<int>& nums,int idx,int sum){
+
+        // base cond
+        if(idx==nums.size()) return; 
+
+        int runningIdx = idx;
+        while(runningIdx<nums.size() && nums[runningIdx] == nums[idx]){
+            runningIdx++;
+        }
+
+
+        // dont delete tht elemnt,
+        // if we dont delet tht elemnt, we dont have to pass or subtract any sum,
+        // and also we skip the repitive procesing  in the above for loop.
+        deleteandEarn(nums,runningIdx,sum);
+
+
+// now i want to delte tht elemnnt
+
+        // count occurences of the curr element
+        int runningSum = nums[idx]*(runningIdx - idx);
+        sum+=runningSum;
+
+        maxPoints=max(maxPoints,sum);
+
+        // skip the element with value nums[val]+1
+        while(runningIdx<nums.size() && nums[runningIdx] == nums[idx]+1)
+          runningIdx++;
+
+
+        // delete tht element, tht means deleete all th elements with val (nums[idx]-1)
+         deleteandEarn(nums,runningIdx,sum);
+    }
+
+
+
+    int deleteAndEarn(vector<int>& nums) {
+
+
+// sort the elelmtns
+       sort(nums.begin(),nums.end());
+       int sum=0;
+        deleteandEarn(nums,0,sum);
+
+      return maxPoints;
+        
+    }
+};
+
+
+
+
+
+
+DP
+
+
+
+class Solution {
+public:
+
+    int maxPoints=0;
+
+    int t[20001];
+
+    int deleteandEarn(vector<int>& nums,int idx){
+
+        // base cond
+        if(idx==nums.size()) return 0 ; 
+
+        if(t[idx]!= -1 ) return t[idx];
+
+        int runningIdx = idx;
+        while(runningIdx<nums.size() && nums[runningIdx] == nums[idx]){
+            runningIdx++;
+        }
+
+        // count occurences of the curr element
+        int runningSum = nums[idx]*(runningIdx - idx);
+
+        // skip the element with value nums[val]+1
+        while(runningIdx<nums.size() && nums[runningIdx] == nums[idx]+1)
+          runningIdx++;
+
+
+        int include = runningSum + deleteandEarn(nums,runningIdx);
+        int dontInclude = deleteandEarn(nums,idx+1);
+
+        return t[idx] = max(dontInclude, include);
+    }
+
+
+
+    int deleteAndEarn(vector<int>& nums) {
+
+
+// sort the elelmtns
+       sort(nums.begin(),nums.end());
+       int sum=0;
+
+        memset(t, -1, sizeof(t));
+
+
+        return deleteandEarn(nums,0);
+
+        
+    }
+};
