@@ -1,0 +1,78 @@
+class Solution {
+public:
+
+    int maxProd =1;
+    string s1 = "" ,s2 = "";
+
+    bool isPalindrome(string s){
+        
+        int n = s.size();
+        for(int i=0; i<n/2; i++)
+            if(s[i] != s[n-1-i]) return false;
+        return true;
+
+    } 
+
+
+    void palindrome(string s,int idx){
+
+     if(idx >= s.size()){
+
+        // if the str has reached to the end
+        // check if its a palindrome
+
+        if(isPalindrome(s1) && isPalindrome(s2)){
+
+            maxProd = max(maxProd, (int)(s1.size()*s2.size()));
+        }
+
+        return;
+     }
+     
+
+    //  include in string s1
+     s1.push_back(s[idx]);
+     palindrome(s,idx+1);
+    //  exclude from string s1
+     s1.pop_back();
+
+
+    //  include in string s2
+     s2.push_back(s[idx]);
+     palindrome(s,idx+1);
+    //  exclude from string s2
+     s2.pop_back();
+
+
+    //  exclude from both the strings
+     palindrome(s,idx+1);
+
+    }
+     
+
+
+    int maxProduct(string s) {
+         palindrome(s,0); 
+
+         return maxProd;       
+    }
+};
+
+
+// 2 palindromic sub...
+
+// given 2 strings
+// since, they need to be disjoint
+
+
+// 3 scenarios :
+
+
+// if we include a char in 1st str we 
+// should nt include in 2nd str
+
+// if we include a char in 2st str we 
+// should nt include in 1st str
+
+// we dont include in both
+
