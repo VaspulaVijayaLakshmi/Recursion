@@ -1,0 +1,53 @@
+This is giving TLE - 517 outof 524 testcases passed..
+
+this is dpon segment trees
+
+
+
+class Solution {
+public:
+
+ int mod = 1e9+7;
+vector<long> dp;
+
+int  maxSubsequence(vector<int> &nums,int idx){
+
+       if(idx >= nums.size()){
+        return 0;
+       }
+
+       if(dp[idx] != -1) return dp[idx]  ;
+       
+       int include = nums[idx] + maxSubsequence(nums,idx+2);
+       int exclude = maxSubsequence(nums,idx+1);
+
+       return dp[idx]= max(include,exclude);
+
+    }
+    
+    int maximumSumSubsequence(vector<int>& nums, vector<vector<int>>& queries) {
+        
+        long sum=0;
+
+        for(int i=0;i<queries.size();i++){
+
+            nums[queries[i][0]] = queries[i][1]; 
+
+        dp.assign(nums.size(), -1); // this resets all elements
+         sum = (sum+maxSubsequence(nums,0))%mod;
+
+        }
+    
+
+    return (int)sum ;
+    }
+};
+
+
+// 2 scenarios :
+
+// select the element - if selcted, then do indx + 2
+
+// else idx+1
+
+
