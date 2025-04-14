@@ -1,0 +1,25 @@
+https://www.naukri.com/code360/problems/maximum-sum-of-non-adjacent-elements_843261?leftPanelTabValue=PROBLEM
+
+
+#include <bits/stdc++.h> 
+
+
+// TLE
+int  maxSubsequence(vector<int> &nums,int idx){
+
+       if(idx >= nums.size()){
+        return 0;
+       }
+       
+       int include = nums[idx] + maxSubsequence(nums,idx+2);
+       int exclude = maxSubsequence(nums,idx+1);
+
+       return max(include,exclude);
+
+    }
+
+int maximumNonAdjacentSum(vector<int> &nums){
+    // Write your code here.
+    return maxSubsequence(nums,0);
+
+}
