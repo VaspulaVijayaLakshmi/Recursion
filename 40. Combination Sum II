@@ -1,1 +1,44 @@
+// duplicates would be there, so sort the array and skip the duplicates
+
+class Solution {
+public:
+    void helper(int idx, int target, vector<int> &candidates, vector<vector<int>> &res, vector<int> &temp){
+        
+            if(target==0){
+             res.push_back(temp);
+
+            //  why return stmt, once the target is 0, no need of further exploration
+              return ;
+            }
+
+         for(int i=idx;i<candidates.size();i++){
+
+            // canddiates are sorted ,once the eleemnt > target break the loop.
+
+            if(candidates[i]>target) break ;
+
+            if(i>idx && candidates[i] == candidates[i-1] ) continue;
+
+            temp.push_back(candidates[i]);
+            helper(i+1,target-candidates[i],candidates,res,temp);
+            temp.pop_back();
+
+          }
+
+        }
+        
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+       
+        sort(candidates.begin(), candidates.end());//sort the given candidates vector 
+        
+
+        vector<vector<int>> ans;
+        vector<int> temp;
+        helper(0, target, candidates, ans, temp);
+
+        return ans;
+    }
+};
+
 
