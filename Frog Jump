@@ -3,7 +3,7 @@ https://www.naukri.com/code360/problems/frog-jump_3621012
 
 Recursion
 
-
+TLE
 int frogJumps(int n,int idx, vector<int> &heights){
 
     // also the question is to reach last stone, so dont include 
@@ -32,6 +32,42 @@ int frogJump(int n, vector<int> &heights)
 
     return frogJumps(n,0,heights);
 
+
+
+}
+
+
+
+
+
+
+
+#include <bits/stdc++.h> 
+
+
+int dp[100001];
+
+int frogJump(int n, vector<int> &heights)
+{
+    // Write your code here.
+
+    memset(dp, -1,sizeof(dp));
+
+    dp[0] =0;
+
+    for(int i=1;i<n;i++){
+
+        int onestep = dp[i-1] + abs(heights[i-1] - heights[i]);
+
+        int twosteps = INT_MAX;
+
+        if(i>1)
+          twosteps = dp[i-2] + abs(heights[i-2] - heights[i]);
+
+      dp[i] = min(onestep,twosteps);
+
+    }
+     return dp[n-1]; 
 
 
 }
