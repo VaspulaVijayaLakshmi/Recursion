@@ -45,5 +45,62 @@ int ninjaTraining(int n, vector<vector<int>> &points)
 // ]
 
 
+
+
+
+
+
+int ninjaTraining(int n, int row, int col, vector<vector<int>> & points,vector<vector<int>> & dp){
+
+ if(row == n) return 0;
+
+ if(dp[row][col] != -1) return dp[row][col];
+
+int maxi = 0;
+
+ for(int i=0;i<3;i++){
+
+   if( i == col) continue;
+
+    int trainingScore = points[row][i] + ninjaTraining(n,row+1,i,points,dp);
+    maxi = max(trainingScore, maxi);
+ }
+
+  return dp[row][col] = maxi;
+
+
+}
+
+
+int ninjaTraining(int n, vector<vector<int>> &points)
+{
+    // Write your code here.
+     vector<vector<int>> dp(n,vector<int>(3,-1));
+     int maxi=0;
+
+     for(int i=0;i<3;i++){
+       maxi=max(maxi,ninjaTraining(n,0,i,points,dp));
+     }
+ 
+
+
+// -1 because we need to finish all 3 tasks on the first day...
+// and i==col , cond will not meet and we call for all 3 cols 
+    return maxi;
+    
+}
+
+
+
+// [ 
+//     [1,2,5], 
+//     [3,1,1] ,
+//     [3,3,3] 
+// ]
+
+
+// take 1 day, in tht call all 3 practices except what was performed last day
+// 
+
 // take 1 day, in tht call all 3 practices except what was performed last day
 // 
