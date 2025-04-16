@@ -1,3 +1,5 @@
+MEMORY limit exceeded
+
 class Solution {
 public:
 
