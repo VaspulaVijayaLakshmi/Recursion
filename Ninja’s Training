@@ -1,0 +1,49 @@
+
+TLE
+
+
+int ninjaTraining(int n, int row, int col, vector<vector<int>> & points){
+
+ if(row == n) return 0;
+
+int maxi = 0;
+
+ for(int i=0;i<3;i++){
+
+   if( i == col) continue;
+
+    int trainingScore = points[row][i] + ninjaTraining(n,row+1,i,points);
+    // we cant change points array in-place because other path may also want to 
+    // explore tht path, so they need real point array, not the 
+    // updated one.
+    maxi = max(trainingScore, maxi);
+ }
+
+  return maxi;
+
+
+}
+
+
+int ninjaTraining(int n, vector<vector<int>> &points)
+{
+    // Write your code here.
+
+
+// -1 because we need to finish all 3 tasks on the first day...
+// and i==col , cond will not meet and we call for all 3 cols 
+    return ninjaTraining(n,0,-1,points);
+    
+}
+
+
+
+// [ 
+//     [1,2,5], 
+//     [3,1,1] ,
+//     [3,3,3] 
+// ]
+
+
+// take 1 day, in tht call all 3 practices except what was performed last day
+// 
