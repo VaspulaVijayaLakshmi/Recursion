@@ -1,0 +1,45 @@
+class Solution {
+public:
+
+int minFallingPathSum(int n,int c, int row, int col, vector<vector<int>> & points,vector<vector<int>> & dp){
+
+ if(row == n) return 0;
+
+ if(dp[row][col] != -1) return dp[row][col];
+
+ int maxi = INT_MAX;
+ for(int i=0;i<c;i++){
+
+   if( i == col) continue;
+
+    int trainingScore = points[row][i] + minFallingPathSum(n,c,row+1,i,points,dp);
+    maxi = min(trainingScore, maxi);
+ }
+
+  return dp[row][col] = maxi;
+
+
+}
+
+
+   
+    int minFallingPathSum(vector<vector<int>>& grid) {
+
+     int n =grid.size();
+     int c=grid[0].size();
+
+      if(grid[0].size() == 1) return grid[0][0];
+
+     vector<vector<int>> dp(n,vector<int>(c,-1));
+     int maxi = INT_MAX;
+
+     for(int i=0;i<c;i++){
+       maxi=min(maxi,minFallingPathSum(n,c,0,i,grid,dp));
+     }
+ 
+
+// -1 because we need to finish all 3 tasks on the first day...
+// and i==col , cond will not meet and we call for all 3 cols 
+    return maxi;     
+    }
+};
