@@ -1,0 +1,70 @@
+class Solution {
+public:
+
+vector<int> s1,s2;
+
+int sum(vector<int> s){
+    
+    int summing=0;
+    for(int i=0;i<s.size();i++)
+        summing += s[i];
+
+
+    return summing;
+
+}
+
+
+    bool partition(vector<int>& nums,int idx){
+
+        if(nums.size() == idx){
+             
+             if(sum(s1) ==sum(s2))
+                return true;
+
+             return false;   
+        }
+
+        s1.push_back(nums[idx]);
+        if(partition(nums,idx+1)) return true;
+        s1.pop_back();
+
+        s2.push_back(nums[idx]);
+        if(partition(nums,idx+1))return true;
+        s2.pop_back();
+        
+        return false;
+
+
+    }
+
+
+    bool canPartition(vector<int>& nums) {
+        
+      return partition(nums,0);
+    }
+      
+};
+
+
+//    Without logic - brute force
+// create 2 subsets
+
+// pick in 1st - check
+// exclude from 1st
+// pop() from 1st
+// include in 2nd
+
+
+// {1,5,11,5}
+
+
+// {1,5,11,5} {} - idx reached , sums doesnt equal backtrack from s1.pop()
+
+// {1,5,11} {5}  idx reached , sum doesnt equal , backtrack s2
+
+// {1,5} {11} idx=2  ,  idx didnt reach, 
+//            idx =3 -  {1,5,5} {11} idx reached sums are equal
+
+
+
