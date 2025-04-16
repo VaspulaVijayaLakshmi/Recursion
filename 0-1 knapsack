@@ -19,3 +19,62 @@ if(weight[idx] > maxWeight )
 
 
 }
+
+
+
+
+
+#include <bits/stdc++.h> 
+
+
+
+vector<vector<int>> dp;
+// // TLE
+int knapsack(vector<int> &weight, vector<int> &value, int n, int maxWeight, int idx){
+
+
+if(idx>=n || maxWeight==0) return 0;
+
+
+if( dp[idx][maxWeight] !=-1) return dp[idx][maxWeight] ;
+
+int include =0;
+// i have to skip that and call to next element
+int exclude = knapsack(weight,value,n,maxWeight,idx+1);  
+
+
+// if weight is less, than i have 2 options ,  exclude and should include as well
+if(weight[idx] <= maxWeight )
+include = value[idx] + knapsack(weight,value,n,maxWeight - weight[idx],idx+1);
+
+
+
+   return dp[idx][maxWeight] = max(include,exclude);
+
+
+}
+
+
+
+
+MEMO
+int knapsack(vector<int> weight, vector<int> value, int n, int maxWeight) 
+{
+	// Write your code here
+
+   dp.assign(n+1,vector<int>(maxWeight+1,-1));
+
+
+
+   return knapsack(weight,value,n,maxWeight,0);
+}
+
+
+
+
+
+// x-axis weight of the bag from 0 to maxWeight-1
+
+
+// Y axis weight array
+// weight array and value array can be tracked simultaneously  with same idx
