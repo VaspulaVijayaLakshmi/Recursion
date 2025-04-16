@@ -1,0 +1,16 @@
+//INTUITION
+
+//the first thing that comes to mind is oddsum and even sum
+//but that doesn't yield max amount
+//eg:[10,1,2,15]
+
+//even sum = [10,2] = 12
+//odd sum  = [1,15] = 16
+
+// but if we choose [10,15] = 25 //maximum we can rob
+
+//so the condition in the ques is we can't rob 2 adjacent houses
+//but its not necessarily mean we have to rob two alternate houses
+//whatever we choose shouldn't be adjancent that's that.
+
+
