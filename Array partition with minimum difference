@@ -1,0 +1,53 @@
+
+int minDiff = INT_MAX;
+
+vector<int> s1;
+vector<int> s2;
+
+
+int sum(vector<int> s){
+
+    int sum=0;
+	for(int i=0;i<s.size();i++)
+	   sum+=s[i];
+
+	return sum;
+}
+
+
+void minSumDiff(vector<int>& arr, int n,int idx){
+
+	if(idx==n){
+
+        int sum1=sum(s1);
+		int sum2=sum(s2);
+
+		int currMinDiff = abs(sum1-sum2);
+		minDiff = min(currMinDiff, minDiff);
+
+		return ;
+       
+	}
+
+
+	s1.push_back(arr[idx]);
+	minSumDiff(arr,n,idx+1);
+	s1.pop_back();
+
+
+	s2.push_back(arr[idx]);
+	minSumDiff(arr,n,idx+1);
+	s2.pop_back();
+	
+}
+
+
+
+int minSubsetSumDifference(vector<int>& arr, int n)
+{
+	// Write your code here.
+
+	minSumDiff(arr,n,0);   
+	return minDiff;
+
+}
