@@ -1,0 +1,74 @@
+int knapsack(int n, int w, vector<int> &profit, vector<int> &weight, int idx){
+ 
+    if(n==idx ||  w==0 ) {
+        return 0;
+    }
+
+    int exclude = knapsack(n,w,profit,weight,idx+1);
+
+    int include =0;
+
+    if(weight[idx] <= w ) 
+    include =  profit[idx] + knapsack(n,w-weight[idx],profit,weight,idx);
+    
+
+    return  max(include , exclude);
+}
+
+
+
+int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight){
+    // Write Your Code Here.
+
+    return knapsack(n,w,profit,weight,0);
+}
+
+
+
+// if weight > currweight - include /exclude
+
+// if weight < currweight - exclude 
+
+
+
+
+
+
+
+
+
+int dp[1001][1001];
+
+int knapsack(int n, int w, vector<int> &profit, vector<int> &weight, int idx){
+ 
+    if(n==idx ||  w==0 ) {
+        return 0;
+    }
+
+    if(dp[idx][w] !=-1 ) return dp[idx][w] ;
+
+    int exclude = knapsack(n,w,profit,weight,idx+1);
+
+    int include =0;
+
+    if(weight[idx] <= w ) 
+    include =  profit[idx] + knapsack(n,w-weight[idx],profit,weight,idx);
+    
+
+    return dp[idx][w] = max(include , exclude);
+}
+
+
+
+int unboundedKnapsack(int n, int w, vector<int> &profit, vector<int> &weight){
+    // Write Your Code Here.
+
+    memset(dp,-1,sizeof(dp));
+    return knapsack(n,w,profit,weight,0);
+}
+
+
+
+// if weight > currweight - include /exclude
+
+// if weight < currweight - exclude 
