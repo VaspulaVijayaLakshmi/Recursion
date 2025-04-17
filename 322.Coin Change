@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int coinChange(vector<int> & coins, int amount, int idx){
+
+      if(amount==0) return 0;
+      if(idx==coins.size()) return INT_MAX;
+
+       int exclude = coinChange(coins,amount,idx+1);
+
+       int include = INT_MAX;
+       if(coins[idx] <= amount){
+          int res =  coinChange(coins,amount-coins[idx],idx);
+
+          if(res!=INT_MAX) 
+              include = 1+res;
+
+       }
+
+      return min(include,exclude);
+
+    }
+
+
+    int coinChange(vector<int>& coins, int amount) {
+
+        int res = coinChange(coins, amount, 0);
+        return res == INT_MAX ? -1 : res;
+        
+    }
+};
+
+
+
+// infinite no.of coins
+
+// what is diff from knapsack
+
+// we can take a coin any no.of times
+// min coins needs to be taken.
+
+// either take the element or exclude 
+
