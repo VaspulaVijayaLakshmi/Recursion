@@ -1,0 +1,63 @@
+TLE
+class Solution {
+public:
+
+ int coinChange(vector<int> & coins, int amount, int idx){
+
+    if(amount==0) return 1;
+
+    if(idx==coins.size()) return 0;
+
+       int exclude = coinChange(coins,amount,idx+1);
+       int include =0;
+       if(coins[idx] <= amount)
+           include = coinChange(coins,amount-coins[idx],idx);
+
+      return exclude+include;
+
+    }
+
+
+
+    int change(int amount, vector<int>& coins) {
+
+        return coinChange(coins,  amount, 0);
+        
+    }
+};
+
+MEMO
+
+
+class Solution {
+public:
+vector<vector<int>> dp;
+
+ int coinChange(vector<int> & coins, int amount, int idx){
+
+    if(amount==0) return 1;
+
+    if(idx==coins.size()) return 0;
+
+    if(dp[idx][amount] !=-1) return dp[idx][amount];
+
+       int exclude = coinChange(coins,amount,idx+1);
+       int include =0;
+       if(coins[idx] <= amount)
+           include = coinChange(coins,amount-coins[idx],idx);
+
+      return dp[idx][amount] = exclude+include;
+
+    }
+
+
+
+    int change(int amount, vector<int>& coins) {
+
+       dp.assign(coins.size(), vector<int>(amount + 1, -1));
+
+
+        return coinChange(coins,  amount, 0);
+        
+    }
+};
