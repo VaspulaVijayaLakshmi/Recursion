@@ -1,0 +1,87 @@
+class Solution {
+public:
+ 
+    int maxCount =0;
+    void maxSplit(string s,int i, unordered_set<string> &res,int currCount){
+
+      if( i == s.size()){
+       maxCount= max( maxCount , currCount);
+       return ;
+      }
+
+    //   split the array
+    for(int j=i;j<s.size();j++){
+
+        // substr from i to j
+       string temp1 = s.substr(i,j-i+1);
+
+    // if substr i-j not in set, add it to set, thts a new substr
+    if(res.find(temp1) == res.end()){
+      
+      res.insert(temp1);
+
+      // next call maxSplit for remaining str
+      maxSplit(s,j+1,res,currCount+1);
+
+      res.erase(temp1);
+    }
+     }
+
+    } 
+
+
+
+    int maxUniqueSplit(string s) {
+
+        unordered_set<string> res;
+        maxSplit(s,0,res,0);
+        return maxCount;
+        
+        
+    }
+};
+
+
+
+// especially in questions like split
+
+// we maintain 2 indices
+
+// i and j, fix i and move j
+
+
+
+// split substr (i-j)
+
+                     //    ababccc
+                     //    i
+                     //    j
+
+            //   /         |        \
+
+// a   babccc      ab abccc      abc   bccc  --------    
+// ij              ij            i  j
+
+
+
+
+// a -  babccc
+//      i
+//      j
+
+// a -   b   abccc
+//       ij
+
+//  a b -  abccc
+//         i
+//         j
+
+//  a b a  bccc   - 'a' is already present in subset no need to continueskip and consider next split     
+// .
+
+// .
+// ....
+
+// ..
+
+ 
