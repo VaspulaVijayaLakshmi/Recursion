@@ -1,0 +1,86 @@
+class Solution {
+public:
+
+
+     void letterCombinations(unordered_map<char,string> &mp,vector<string> &res,
+                     string temp,string digits,int idx){
+
+        if(idx>=digits.size()){
+            res.push_back(temp);
+            return ;
+        }
+
+            // fecth from hashmap, the chars for the digits
+             string s = mp[digits[idx]];
+             //  2 - abc
+
+            for(int j=0;j<s.size();j++){
+
+                // pick a
+                temp.push_back(s[j]);
+                letterCombinations(mp,res,temp,digits,idx+1);
+                temp.pop_back();
+        
+            }
+
+     }
+    
+    vector<string> letterCombinations(string digits) {
+
+               
+        //map each number with associated alphabets 
+        unordered_map<char,string> mp{
+            
+            {'1'," "},
+            {'2',"abc"},
+            {'3',"def"},
+            {'4',"ghi"},
+            {'5',"jkl"},
+            {'6',"mno"},
+            {'7',"pqrs"},
+            {'8',"tuv"},
+            {'9',"wxyz"}
+        
+        };
+        
+        vector<string> res;
+        string temp;
+        
+        if(digits.size()==0)
+            return res;
+        
+        
+        letterCombinations(mp,res,temp,digits,0);
+        
+        return res;
+        
+    }
+};
+
+
+// "235"
+
+// 2 - "abc"
+// 3 - "def"
+// 5 - "jkl"
+
+// create a hashmap first
+
+// for(each int in string){
+
+//     for(each work in str -> )
+// }
+
+
+// a 
+// d
+//  -  adj ,adk,adl
+
+// a
+// e 
+//  - aej,aek,ael
+
+
+
+
+
