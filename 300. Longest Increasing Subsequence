@@ -1,0 +1,27 @@
+TLE
+
+class Solution {
+public:
+ 
+   int LIS(vector<int>& nums,int idx,int prev){
+
+    if(idx >= nums.size()) return 0;
+  
+    int dontTake = LIS(nums,idx+1, prev);
+    int take =0;
+
+    if(nums[idx] > prev)
+       take = 1 + LIS(nums,idx+1, nums[idx]);
+
+
+    return max(take, dontTake);
+
+     
+   }
+
+    int lengthOfLIS(vector<int>& nums) {
+
+         return LIS(nums,0,INT_MIN);
+ 
+    }
+};
