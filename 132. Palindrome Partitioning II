@@ -44,3 +44,75 @@ public:
         
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+
+    bool isPalindrome(string s){
+
+        int l=0,r=s.size()-1;
+
+        while(l<=r){
+
+            if(s[l]!=s[r]) return false;
+            l++;
+            r--;
+        }
+
+        return true;
+    }
+
+
+
+But the first one cannot be memoized, if u want to memoize u need to write ti in 2nd approach only\
+
+
+
+
+    int minCut(string s,int i){
+
+      if(i==s.size()){
+        return 0;
+      }
+
+
+      int minCount=INT_MAX;
+      for(int j=i;j<s.size();j++){
+
+       string sub = s.substr(i,j-i+1);
+
+       if(isPalindrome(sub)){
+
+                //   this is dfs
+          int cuts = 1+ minCut(s,j+1); 
+
+        //   once dfs completes, take min
+          minCount = min(cuts,minCount);
+       }
+
+      }
+
+      return minCount;
+
+    }
+
+    int minCut(string s) {
+     
+     return minCut(s,0)-1;
+        
+    }
+};
