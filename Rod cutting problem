@@ -1,3 +1,37 @@
+
+
+int cutRod(vector<int> &price, int n,int len){
+
+	if(len>=n){
+        return 0;
+	}
+    
+	int dontTake = cutRod(price , n,len+1);
+
+    int take =0;
+
+    if(len < n)
+	// after we added the cur len, now the len decreases
+	   take = price[len] + cutRod(price, n -(len+1)  ,len);
+
+    return  max(take,dontTake);
+    
+
+	}
+
+
+
+
+
+int cutRod(vector<int> &price, int n)
+{
+
+	return cutRod(price,n,0);
+	
+	
+}
+
+
 // rod size - 5
 // each cut cost of len 1  2  3  4   5
 //                      2  5  7  8   10
@@ -18,4 +52,23 @@
 // 1+3+1
 // ...
 
-// this is like word break II prblm
+
+// so instead of cutting
+
+// we can take it as collect  rod length.
+
+
+// n=5 
+// cost -  [2 5 7 8 10]
+
+// so this is like bounded knapsack, either take it or not take it
+
+// but its UNBOUNDED KnapSACK - u can collect the rod of same length multiple times
+
+
+
+
+
+
+ 
+
