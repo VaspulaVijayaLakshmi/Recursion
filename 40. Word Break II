@@ -1,0 +1,86 @@
+class Solution {
+public:
+
+    vector<string> res;
+
+// we need to pass temp string by reference
+   void wordBreak(string s, unordered_map<string, bool> wordDict,int i,string &temp){
+     
+     if(i>=s.size()){
+
+        res.push_back(temp);
+        return ;
+
+     }
+
+     for(int j=i;j<s.size();j++){
+
+        string word = s.substr(i,j-i+1);
+
+// if its not present in dict 
+        if(wordDict.find(word) != wordDict.end())   {
+
+            // temp += " "+word ;
+            // wordBreak(s,wordDict,j,temp);
+            // temp.pop_back();
+
+
+// but we need to keep track of 
+// how may words we inserted - if its a strting str we insert directly
+// we need to add space to the word
+// and how many words we need to pop back
+
+// if this is the first time we r adding a str
+        if(temp.size()==0){
+            temp=word;
+        }
+
+        else{
+            temp += " "+word ;
+        }
+
+
+// next word strts from j+1
+         wordBreak(s,wordDict,j+1,temp);
+
+        // chars to pop
+        int x=0;
+        while(x<word.size()){
+            temp.pop_back();
+            x++;
+        } 
+
+        // we need to remove extra space also
+        // if(sentence.size()>0)that means itsnot the forst word,
+        // then we need to remove extra space
+
+        if(temp.size()>0)
+        temp.pop_back();
+
+
+        }
+     }
+
+
+   }
+
+    vector<string> wordBreak(string s, vector<string>& wordDict) {
+        
+
+        unordered_map<string,bool> worddict;
+
+        for(auto word : wordDict){
+            worddict[word] =true;
+        }
+
+        string temp ="";
+        wordBreak(s,worddict,0,temp);
+        return res;
+    }
+};
+
+
+// s = "catsanddog",
+
+// same like i and j
+//  wordDict = ["cat","cats","and","sand","dog"]
