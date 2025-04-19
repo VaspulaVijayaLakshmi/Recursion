@@ -1,0 +1,44 @@
+class Solution {
+public:
+
+     int getMaxGold(vector<vector<int>>& grid,int x,int y){
+
+        if(x>=grid.size() || y>=grid[0].size() || x<0 || y<0 || grid[x][y] ==0)
+         return 0;
+
+         int temp = grid[x][y];
+         grid[x][y] = 0;
+
+        int d1= getMaxGold(grid,x+1,y);
+        int d2= getMaxGold(grid,x,y+1);
+        int d3= getMaxGold(grid,x-1,y);
+        int d4= getMaxGold(grid,x,y-1);
+
+        grid[x][y] =temp;
+
+        return grid[x][y] + max({d1,d2,d3,d4});
+
+     }
+
+
+
+    int getMaximumGold(vector<vector<int>>& grid) {
+
+        int res=0;
+        for(int i=0;i<grid.size();i++){
+            for(int j=0;j<grid[0].size();j++){
+
+               if(grid[i][j] != 0)
+               res= max(res, getMaxGold(grid,i,j));
+
+            }
+        }
+
+        return res;
+    }
+};
+
+
+// cant visit cell twice
+// never visit empty gold cell
+// strt and stop at any loc
