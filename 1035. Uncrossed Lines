@@ -1,0 +1,144 @@
+class Solution {
+public:
+
+// we need to pass i index for traversing nums1 arr,
+
+
+// scenarios :
+
+// we reached end of j=nums2.size() and i isnt findised yet
+
+
+// if there is a match to nums[i] and nums[j] continuing, then call dfs
+// with i+1, j+1,
+
+    int maxLines=0;
+
+    int uncrossedLines(vector<int>& nums1, vector<int>& nums2,int i,int j){
+        
+        if(j>=nums2.size() || i>=nums1.size() ) return 0;
+        
+        if(nums1[i] == nums2[j])
+         return  1 + uncrossedLines(nums1,nums2,i+1,j+1);
+
+        else
+         return max(  uncrossedLines(nums1,nums2,i+1,j),
+          uncrossedLines(nums1,nums2,i,j+1)) ;
+
+    }
+
+
+
+    int maxUncrossedLines(vector<int>& nums1, vector<int>& nums2) {
+        
+       return  uncrossedLines(nums1,nums2,0,0);
+    }
+};
+
+
+
+// THIS is LIKE LCS only...
+
+
+// 1 4 2
+
+// | \
+
+// 1 2 4
+
+
+// so ,  the question boils down to, not crossing lines means
+// ,lets say, we found, that 
+
+// nums1[i] == nums2[j]
+
+// and if 
+// j1>i1
+
+
+// then next word in nums[i] needs to be compared with nums[j2]
+
+// j2>j1
+
+// that means
+
+// 1 4 2
+// 1 2 4
+
+//      i          j
+// nums[0] == nums[0] 
+
+// num1[1] == num2[2]
+
+// num2[2] == we shld compare with j>2 now, or else line will cross 
+
+
+
+
+// 1line
+
+// 1 4 2
+
+// 2 1 3
+
+
+
+
+// 3 lines
+
+// 2.  5. 1.  2. 5
+
+//     |   \   \ 
+
+// 10. 5. 2.  1. 5.  2
+
+
+
+// 3line
+
+// 2.  5. 1.  2. 5
+
+//  \    \     \
+           
+// 10. 5. 2.  1. 5.  2
+
+
+
+// eG:
+
+// 2  5.  1.  2. 5
+
+// 5. 1.  2   5.  2
+
+
+
+// 2  5.  1.  2. 5
+
+//   \  \.     \ 
+
+// 5. 1.  2   5.  2
+
+// 3lines
+
+
+
+// but we also can also
+
+
+// 2  5.  1.  2. 5
+
+//   /    /.  /  / 
+
+// 5. 1.  2   5.  2
+
+// 4lines
+
+
+
+// so i pick elemnt i in nums(i) and we need to run nums[j] from 0 to n-1
+// nd continue with elemnt after tht.
+
+
+
+
+ 
