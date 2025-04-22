@@ -1,0 +1,63 @@
+class Solution {
+public:
+
+    int minimumDeleteSum(string s1, string s2) {  
+        int n1 = s1.size();
+        int n2 = s2.size();
+
+        vector<vector<int>> dp(n1+1,vector<int>(n2+1,0));
+
+        for(int i=1;i<=n1;i++){
+            for(int j=1;j<=n2;j++){
+
+                if(s1[i-1]==s2[j-1])
+                // track ASCII sum of the matching string, instead of adding 1
+                 dp[i][j] = s1[i-1]+dp[i-1][j-1];
+
+                else
+                 dp[i][j] =  max(dp[i-1][j],dp[i][j-1]); 
+            }
+        }
+
+        // dp[n1][n2] -> represents the LCS
+        // to find ASCII - we can do this, Add all the letters
+        
+       int c= dp[n1][n2];
+           
+        int ASC1=0, ASC2 =0;
+        for(int i=0;i<n1;i++)  ASC1+= (int)s1[i];
+        for(int i=0;i<n2;i++)  ASC2+= (int)s2[i];
+
+        return ((ASC1 + ASC2) - 2*c);
+
+
+// minimumDeleteSum=asciiSum(s1)+asciiSum(s2)−2∗asciiSum(LCS)
+        
+    }
+};
+
+
+// s1 = "sea"
+// s2 = "eat"
+
+
+// "sea" -> "eat"
+// LCS -> "ea"
+
+// s and t
+
+
+
+// s1= "delete"  s2 = "leet"
+// LCS -> "let"
+
+
+// so its not sufficient  if we find just lcs because tht may or 
+// maynot minimize the sum
+// "lee". and "let" and "eet"
+
+
+// so we need to track the 
+
+
+
