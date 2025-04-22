@@ -60,4 +60,14 @@ public:
 // so we need to track the 
 
 
+// "lee" = 310
+
+// "let" = 325
+
+// "dee" = 302 - min sum we need to delete
+
+
+// to minimize the char sum  to delete,   we need to maximize the sum of 
+// elements that are common.
+
 
