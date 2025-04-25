@@ -1,9 +1,31 @@
 class Solution {
-public:
+public: 
+
+    int subsequences(string s,string t, int i,int j){
+      
+      if( j == t.size()) return 1;
+      if( i == s.size()) return 0;
+
+      if(s[i] == t[j]) 
+          return subsequences(s,t,i+1,j+1) + subsequences(s,t,i+1,j);
+
+       else 
+          return subsequences(s,t,i+1,j);
+
+    }
+
+
     int numDistinct(string s, string t) {
-        
+
+     return  subsequences(s,t,0,0);
+ 
     }
 };
+
+
+
+
+
 
 
 
