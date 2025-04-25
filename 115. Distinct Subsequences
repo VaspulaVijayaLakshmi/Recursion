@@ -26,50 +26,36 @@ public:
 
 
 
+MEMOIZATION
 
 
+class Solution {
+public: 
+
+    vector<vector<int>> dp;
+    int subsequences(string s,string t, int i,int j){
+      
+      if( j == t.size()) return 1;
+      if( i == s.size()) return 0;
+
+      if(dp[i][j] != -1) return dp[i][j];
+
+      if(s[i] == t[j]) 
+          return dp[i][j] =  subsequences(s,t,i+1,j+1) + subsequences(s,t,i+1,j);
+
+       else 
+          return dp[i][j] = subsequences(s,t,i+1,j);
+
+    }
 
 
-// occurences of t in s
+    int numDistinct(string s, string t) {
 
-// if t reaches , 0 , tht means we found a i=occurence
-
-
-
-// class Solution {
-// public:
-
-//     int solve(int i, int j,string&s,string&t,vector<vector<int>>&dp){
-//         if(j == 0) return 1; 
-//         if(i == 0) return 0; 
-
-//         if(dp[i][j] != -1) return dp[i][j]; 
-
-
-//         if(s[i-1] == t[j-1]){
-
-    // here is a little twist, if the chars are matching, do i-1 and j-1, 
-    // also include i-1 with j
-
-
-//             return dp[i][j] = solve(i-1,j-1,s,t,dp) + solve(i-1,j,s,t,dp);
-//         }
-
-
-// if they are not equal , then i-1 , string s, since we need to match with j str
-//         return solve(i-1,j,s,t,dp);
-//     }
-
-
-//     int numDistinct(string s, string t){
-
-//         int n = s.size(), m = t.size(); 
-
-//         vector<vector<int>>dp(n+1,vector<int>(m+1,-1)); 
-//         return solve(n,m,s,t,dp); 
-//     }
-// };
-
+     dp.resize(s.size(),vector<int>(t.size(),-1));
+     return  subsequences(s,t,0,0);
+ 
+    }
+};
 
 
 
