@@ -1,0 +1,50 @@
+class Solution {
+public:
+
+   vector<vector<int>> dir = {
+    {-2, -1},{-2, 1},{-1, -2},{-1, 2},
+    {1, -2},{1, 2},{2, -1},{2, 1}
+    };
+
+
+    bool isValid(vector<vector<int>>& grid,int x,int y,int n, int move){
+
+       if(x<0 || y<0 || x>=n || y>=n || grid[x][y] != move )
+         return false;
+        
+        return true;
+
+    }
+
+    bool gridDfs(vector<vector<int>>& grid,int n,int moves,int move,int x,int y){
+
+        if(move == moves) return true;
+
+        for(int i=0;i<8;i++){
+
+            int nx = x+dir[i][0] ;
+            int ny = y+dir[i][1];
+
+            if (isValid(grid, nx, ny, n, move + 1)) {
+                if (gridDfs(grid, n, moves, move + 1, nx, ny)) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+
+    }
+
+    bool checkValidGrid(vector<vector<int>>& grid) {
+
+        int n=grid.size();
+        int moves= n*n -1 ;
+
+        if(grid[0][0] !=0) return false;
+
+        return gridDfs(grid,n,moves,0,0,0);
+        
+    }
+};
