@@ -1,0 +1,80 @@
+class Solution {
+public:
+
+   vector<vector<char>> dp;
+
+    bool isValid(int r,int c,int n){
+
+    // check for valid col
+
+    for(int i=0;i<r;i++){
+        if(dp[i][c] == 'Q')
+         return false;
+    }
+
+    // check for valid left diag
+    int left = c-1;
+    for(int i=r-1;i>=0 && left>=0 ;i--){
+        if(dp[i][left] == 'Q')
+          return false;
+
+          left--;
+    }
+
+
+    // check for valid right diag
+    int right = c+1;
+    for(int i=r-1 ; i>=0 && right<n ;i--){
+        if(dp[i][right] == 'Q')
+          return false;
+
+          right++;
+    }
+
+    return true;
+
+   }
+
+
+
+   int solveQueens(int row,int n){
+
+         if(row == n){
+           return 1;
+         }
+
+         int count=0;
+         for(int col=0;col<n;col++){
+
+            if(isValid(row,col,n)){
+
+                dp[row][col] = 'Q';
+                count += solveQueens(row+1,n);
+                dp[row][col] = '.';
+
+            }
+
+         }
+
+         return count;
+
+    }
+    
+
+
+    int totalNQueens(int n) {
+
+        dp.resize(n,vector<char>(n,'.'));
+        return solveQueens(0,n);    
+    }
+
+};
+
+
+
+
+           // validate the move
+            // if yes  : 
+             // place the queen
+            // proceed with solveQueens
+            // change the pos at the pos - backtracking step
