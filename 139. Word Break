@@ -1,0 +1,52 @@
+class Solution{
+public:
+   
+bool wordBreak(string s, vector<string> &dict) {
+    
+ unordered_set<string> st;   
+ for(string &s1:dict) 
+     st.insert(s1);
+    
+  return wordBreak( s,0, st);
+	
+}
+    
+    
+    bool wordBreak(string s,int i, unordered_set<string> &dict) {
+        
+        if(i==s.size()) return true ;
+
+        for(int j=i;j<s.size();j++){
+            string substr = s.substr(i,j-i+1);
+            if(dict.find(substr) != dict.end()){
+            
+             if( wordBreak(s,j+1,dict))
+              return true;
+
+            }
+
+        }
+
+        return false;
+    }    
+     
+};
+
+
+
+// s = "leetcode" wordDict = ["lee", "leet", "code"]
+
+// so while partioning its possible tht we may split at "lee", now we have to 
+// traverse till the end, to spilit it and we will not find any t, tc,tco,tcode
+
+// so we need to traverse back and split at someother place
+// like "leet", then i can split at code
+
+
+
+// so this is a backtracking  problem
+            
+//  so the question is : do we need  to return if somee split returns
+// false, no, we dont, we will split at some other place.
+            
+    
