@@ -1,0 +1,92 @@
+class Solution {
+public:
+
+   vector<vector<string>> res;
+   vector<vector<char>> dp;
+
+   void display(int n){
+
+    vector<string> rows;
+
+    for(int i=0;i<n;i++){
+        string row="";
+        
+        for(int j=0;j<n;j++){
+            row+=dp[i][j];
+        }
+
+        rows.push_back(row);
+        
+    }
+
+     res.push_back(rows);
+     
+   }
+
+   bool isValid(int r,int c,int n){
+
+    // check for valid col
+
+    for(int i=0;i<r;i++){
+        if(dp[i][c] == 'Q')
+         return false;
+    }
+
+    // check for valid left diag
+    int left = c-1;
+    for(int i=r-1;i>=0 && left>=0 ;i--){
+        if(dp[i][left] == 'Q')
+          return false;
+
+          left--;
+    }
+
+
+    // check for valid right diag
+    int right = c+1;
+    for(int i=r-1 ; i>=0 && right<n ;i--){
+        if(dp[i][right] == 'Q')
+          return false;
+
+          right++;
+    }
+
+    return true;
+
+   }
+ 
+
+    void solveQueens(int row,int n){
+
+         if(row == n){
+            display(n);
+         }
+
+         for(int col=0;col<n;col++){
+
+            if(isValid(row,col,n)){
+
+                dp[row][col] = 'Q';
+                solveQueens(row+1,n);
+                dp[row][col] = '.';
+
+            }
+
+         }
+
+    }
+    
+    vector<vector<string>> solveNQueens(int n) {
+        
+        dp.resize(n,vector<char>(n,'.'));
+        solveQueens(0,n);
+        return res;
+    }
+};
+
+
+           // validate the move
+            // if yes  : 
+             // place the queen
+            // proceed with solveQueens
+            // change the pos at the pos - backtracking step
