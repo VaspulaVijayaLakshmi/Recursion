@@ -63,3 +63,44 @@ public:
 
 
 // pow of unique posiite intergers - cant take elemnts twice
+
+
+
+
+
+
+
+
+
+MEMO
+
+
+class Solution {
+public:
+    const int MOD = 1e9 + 7;
+    vector<vector<long long>> dp;
+
+    long long numberOfWays(int n, int x, int limit, int curr, int sum) {
+        if (sum == n) return 1;
+        if (curr > limit || sum > n) return 0;
+
+        if (dp[sum][curr] != -1) return dp[sum][curr];
+
+        long long power = pow(curr, x);
+
+        long long dontPick = numberOfWays(n, x, limit, curr + 1, sum) % MOD;
+
+        long long pick = 0;
+        if (sum + power <= n)
+            pick = numberOfWays(n, x, limit, curr + 1, sum + power) % MOD;
+
+        return dp[sum][curr] = (pick + dontPick) % MOD;
+    }
+
+    int numberOfWays(int n, int x) {
+        int limit = (int)round(pow(n, 1.0 / x));
+        dp.assign(n + 1, vector<long long>(limit + 1, -1));
+        return numberOfWays(n, x, limit, 1, 0);
+    }
+};
+
