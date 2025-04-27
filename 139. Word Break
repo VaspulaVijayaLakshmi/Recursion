@@ -48,5 +48,64 @@ bool wordBreak(string s, vector<string> &dict) {
             
 //  so the question is : do we need  to return if somee split returns
 // false, no, we dont, we will split at some other place.
+
+
+
+
+
+
+
+
+
+
+
+// Memoization
+
+class Solution{
+public:
+   
+   vector<bool> dp;
+
+bool wordBreak(string s, vector<string> &dict) {
+    
+ unordered_set<string> st;   
+ for(string &s1:dict) 
+     st.insert(s1);
+
+     dp.resize(s.size()+1,false);
+    //  empty string
+     dp[0] = true;
+    
+  return wordBreak( s,0, st);
+	
+}
+
+// dp[i] - if there exists a substr 
+//  the substr from 0-i , can be splitted to this point
+
+    
+    
+    bool wordBreak(string s,int i, unordered_set<string> &dict) {
+        
+        if(i==s.size()) return true ;
+
+// in memoization, we need to store the result after everthing finishes
+// so we will need to store ans in some variable
+        for(int j=i;j<s.size();j++){
+            string substr = s.substr(i,j-i+1);
+            if(dict.find(substr) != dict.end()){
+            
+             if( wordBreak(s,j+1,dict))
+              return dp[i] = true;
+
+            }
+
+        }
+
+        return dp[i] = false;
+    }    
+     
+};
+
             
     
