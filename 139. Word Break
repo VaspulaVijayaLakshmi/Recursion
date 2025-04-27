@@ -107,5 +107,61 @@ bool wordBreak(string s, vector<string> &dict) {
      
 };
 
+
+
+DP
+
+
+
+
+
+
+// dp, we will build such tht,  idx i, represents if the sr so
+//  far can be breaked or not
+
+
+// 1D array
+
+// "" l e e t c o d e
+// T  _ _ _ _ _ _ _ _
+
+// and my dict - ["lee", "leet" , "code"]
+
+
+// till l , no, 
+//  le - no
+//  lee - yes(present in dict) -> 2 options now , 
+//                       -> we can split here itself, so the next str could strting fromnnew
+//                       -> i.e, we can strt  if new substr , 't' is in dict
+//                       -> or 'tc' is in dict...like tht
+
+
+//                       (or) we can continue thi curr subsre only
+
+
+
+        
+//         l e e t c o d e
+
+//         F F T Y 
+
+//         now at T, its true, so nxt substr could strt new substr , t
+//         't' is not present
+
+//         come back each step 'te' - No
+//         "tee" - no
+//         "leet" _yes
+
+//         now frokm c I can str new substr or go back eachstep and heck if
+//         "ct" , "cte","ctee","cteel"
+// ......
+
+
+                       
+             
+
+
+
+//  leet - yes
             
     
