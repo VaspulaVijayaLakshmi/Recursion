@@ -94,3 +94,59 @@ class Solution {
     //    1 
     //    2 and 12 - here we need to call 2 times
     //    7 and 27(27 is nt present)
+
+
+
+
+
+
+
+
+MEMOIZATION 
+
+
+
+class Solution {
+
+    public :
+
+    vector<int> dp;
+
+    int numDecoding(string s,int idx){
+
+       if(idx >= s.size()) return 1; 
+
+       if(dp[idx]!=-1) return dp[idx];
+  
+        int count=0;
+
+        // substr of len 1
+        // if s[i] =0 we dnt form a one length substr of len 1, '0'
+        if(s[idx] !='0' )
+        count += numDecoding(s,idx+1); 
+
+        // substr of len 2
+
+        // idx>0
+        //  s[idx] ==1 then my curr num can be from 0-9
+        //  s[idx+1] == 2 then my curr num should be from 0-6
+       if( idx<s.size()-1 ){
+        if( s[idx] == '1' || (s[idx] == '2' && s[idx+1] <= '6'))
+           count+=numDecoding(s,idx+2);
+       }
+    
+       return dp[idx] = count;
+
+    }
+
+
+
+     int numDecodings(string s) {
+
+        if(s[0] == '0') return 0;
+
+        dp.resize(s.size(),-1);
+
+        return numDecoding(s,0);
+    }
+};
