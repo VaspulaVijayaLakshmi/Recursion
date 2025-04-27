@@ -1,0 +1,79 @@
+Recursion
+
+
+class Solution {
+public:
+
+    int MOD = 1e9+7;
+    int countTexts(string keys,int idx){
+
+      if(idx==keys.size()) return 1;
+
+    //   until where this j jas to go for this idx, it cant go till the end
+    // so it has to go until new char appears??? Yes, But here is a little twist
+    // lets say there "2222", we domt want to go till 2222, 4 times, because ,
+    // we have 3 possibilities tht should enough, the 
+    // 4th char we can take it up in next substr
+
+    // like 2222 for forst 2 we can process it as 222
+    // and for next 2 for loop we can cover 222
+
+
+    // but the simple twist is 7 and 9 have 4 words
+    int count=0;
+    int itr = 3;
+    if(keys[idx] == '7' && keys[idx]=='9') itr=4;
+     
+      for(int j=idx;j<keys.size() && itr>0 ;j++,itr--){
+        
+        if(keys[idx] == keys[j]){
+            // we need to split at j+1 now
+        count+=countTexts(keys,j+1)%MOD;
+        }
+
+        else break;
+
+
+
+      }
+
+      return count;
+
+    }
+    
+    int countTexts(string pressedKeys) {
+
+     return countTexts(pressedKeys,0);
+        
+    }
+};
+
+
+// basically decoding and splitting
+
+// 2266622
+
+// you can split the string 22 means, its 
+
+// 2 -1 time  - a
+// 2 -2 times - b
+// 2- 3 times - c
+
+// so if 22 is there, it could be "aa" or "b"
+
+// so maybe I can maintain hasmap 
+
+// 2 - {{a},{b},{c}}
+// 3 - {{d},{e},{f}}
+
+// 22233
+
+// aaadd
+// aaae
+
+// so we need to form a substr with j, i-1, i-2..until s[i] = some other char
+
+
+
+// this a unique condition
+// 2222
