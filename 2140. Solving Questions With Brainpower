@@ -1,0 +1,29 @@
+class Solution {
+public:
+
+    vector<long long> dp;
+    long long mostPoints(vector<vector<int>>& questions, int idx){
+
+      if(idx>=questions.size()) return 0;
+
+      if(dp[idx]!=-1) return dp[idx];
+
+      long long solve = questions[idx][0] + mostPoints(questions,idx+questions[idx][1]+1) ;
+      long long skip = mostPoints(questions,idx+1);
+
+      return dp[idx] = max(solve, skip);
+    }
+
+    long long mostPoints(vector<vector<int>>& questions) {
+        
+    dp.resize(questions.size(),-1);
+    return mostPoints(questions,0);
+
+    }
+};
+
+// each option - skip or solve
+
+// if i will solve -  skip i+brainpower times
+
+// if i skip , then i+1
