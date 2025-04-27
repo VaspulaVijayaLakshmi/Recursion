@@ -114,6 +114,56 @@ DP
 
 
 
+class Solution{
+public:
+   
+   vector<bool> dp;
+
+bool wordBreak(string s, vector<string> &dict) {
+    
+ unordered_set<string> st;   
+ for(string &s1:dict) 
+     st.insert(s1);
+
+     dp.resize(s.size()+1,false);
+     dp[0] = true;
+
+     for(int i=1;i<=s.size();i++){
+        for(int j=i-1;j>=0;j--){
+
+// last substr , until when it was true, we will form a new substr
+            if(dp[j]){
+
+                // lets say dp[j] is true
+                // - that means we need to form a substr 
+                // from j+1 to i now
+                // and check if tht exists in dict
+
+                // so even if dp[j] - true but the substr is not present in 
+                // dict, we still contine forming substrings, until its prsent in dict
+
+
+                string word = s.substr(j,i-j);
+                if(st.find(word) != st.end()){
+
+                    dp[i] = true;
+                    // break;   we need tobreak to strt from new str
+                }
+
+            }
+
+
+        }
+     }
+
+
+    
+  return dp[s.size()];
+    
+}        
+        
+};
+
 
 
 // dp, we will build such tht,  idx i, represents if the sr so
@@ -163,5 +213,6 @@ DP
 
 
 //  leet - yes
-            
-    
+
+
+
