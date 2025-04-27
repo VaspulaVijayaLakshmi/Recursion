@@ -150,3 +150,51 @@ class Solution {
         return numDecoding(s,0);
     }
 };
+
+
+
+
+DP
+
+
+class Solution {
+
+public :
+
+    vector<int> dp;
+    int numDecodings(string s) {
+
+        if(s[0] == '0') return 0;
+ 
+       dp.resize(s.size()+1,0);
+
+    //    dp[0] is empty string , there is 1 way to decode an empty string?/
+
+       dp[0] = 1;
+
+    //    with only 1 char, we can decode 1 ways , if its not 0
+    // , tht case is already handled above
+       dp[1] = 1; 
+
+       for(int i=2;i<=s.size();i++){
+
+        // dp is strting from 2nd idx, but str should be fro idx1
+
+      int oneDigit = std::stoi(s.substr(i - 1, 1));  // s.substr(i - 1, 1) gives substring of length 1
+    
+      // Extracting the two-digit integer (substring of length 2)
+      int twoDigit = std::stoi(s.substr(i - 2, 2));
+
+        if(oneDigit>=1 && oneDigit<=9)
+         dp[i] += dp[i-1];
+
+        if(twoDigit>=10 && twoDigit<=26)
+         dp[i] +=  dp[i-2]; 
+        
+       } 
+      
+       return dp[s.size()];
+
+        
+    }
+};
