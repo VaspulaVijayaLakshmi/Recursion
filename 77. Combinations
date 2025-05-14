@@ -1,0 +1,18 @@
+class Solution {
+public:
+
+    vector<vector<int>> res;
+
+    void combine(int n,int k, vector<int> &temp,int strt){
+
+        if(temp.size()==k){
+            res.push_back(temp);
+        }
+
+    for(int i=strt;i<=n;i++){
+        temp.push_back(i);
+        combine(n,k,temp,i+1);
+        temp.pop_back();
+    }
+
+    }
