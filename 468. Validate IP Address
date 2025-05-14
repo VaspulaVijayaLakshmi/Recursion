@@ -1,0 +1,78 @@
+// minIP4 - 0.0.0.0
+// max IP4 - "255.255.255.255"
+// if IP4 - then maxsize - 15
+
+
+// MinIP6 - 0.0.0.0.0.0.0.0
+// maxIP6 - "XXXX.XXXX.XXXX.XXXX.XXXX.XXXX.XXXX.XXXX"
+// maxsize - 
+
+// In the string "2001:0db8:85a3:0:0:8A2E:0370:7334:", the colon at the end makes it
+// look like there is an empty segment after the last valid segment 
+
+class Solution {
+public:
+    bool validIP4s(string IP, int idx, int segment = 0) {
+        if (idx >= IP.size() && segment == 4) return true;
+        if (segment >= 4 || idx >= IP.size()) return false;
+
+        int end = idx;
+        while (end < IP.size() && IP[end] != '.') end++;
+
+        string part = IP.substr(idx, end - idx);
+        if (!isValidIpv4Segment(part)) return false;
+
+        return validIP4s(IP, end + 1, segment + 1);
+    }
+
+    bool isValidIpv4Segment(string seg) {
+        if (seg.empty() || seg.size() > 3) return false;
+        if (seg.size() > 1 && seg[0] == '0') return false;
+
+        for (char c : seg) {
+            if (!isdigit(c)) return false;
+        }
+
+        try {
+            int num = stoi(seg);
+            return num >= 0 && num <= 255;
+        } catch (...) {
+            return false;
+        }
+    }
+
+    bool validIP6s(string IP, int idx, int segment = 0) {
+        if (idx >= IP.size() && segment == 8) return true;
+        if (segment >= 8 || idx >= IP.size()) return false;
+
+        int end = idx;
+        while (end < IP.size() && IP[end] != ':') end++;
+
+        string part = IP.substr(idx, end - idx);
+        if (!isValidIpv6Segment(part)) return false;
+
+        return validIP6s(IP, end + 1, segment + 1);
+    }
+
+    bool isValidIpv6Segment(string seg) {
+        if (seg.empty() || seg.size() > 4) return false;
+
+        for (char c : seg) {
+            if (!isxdigit(c)) return false;
+        }
+
+        return true;
+    }
+
+    string validIPAddress(string queryIP) {
+        if (count(queryIP.begin(), queryIP.end(), '.') == 3 &&
+            validIP4s(queryIP, 0))
+            return "IPv4";
+        if (count(queryIP.begin(), queryIP.end(), ':') == 7 &&
+            validIP6s(queryIP, 0))
+            return "IPv6";
+
+
+        return "Neither";
+    }
+};
