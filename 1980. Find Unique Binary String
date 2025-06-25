@@ -1,0 +1,51 @@
+class Solution {
+public:
+
+    string findDiff(unordered_set<string>& st, string s, int n) {
+        if (s.size() == n) {
+            if (st.find(s) == st.end())
+                return s;
+            else
+                return ""; // No match
+        }
+
+        // Try appending '0'
+        string res = findDiff(st, s + "0", n);
+        if (res != "") return res;
+
+        // Try appending '1'
+        res = findDiff(st, s + "1", n);
+        return res; // May be "" if nothing found
+    }
+
+
+
+    string findDifferentBinaryString(vector<string>& nums) {
+        
+        int n=nums[0].size();
+        unordered_set<string> st(nums.begin(),nums.end());
+        string temp="";
+        return findDiff(st,temp,n);
+    }
+};
+
+
+
+
+//    [111] [011] [001]
+    //  8     3     1
+
+
+    // put these in a set
+
+    // now we will strt will emepty string
+    // each pos- we have 0/1 
+    // and when we hit the size of the string, we see if thats present
+
+    // then we backtrack
+
+
+       
+
+
+
