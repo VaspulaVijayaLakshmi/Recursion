@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int kthGrammar(int n, int k) {
+              if(n==1 && k==1) return 0;
+
+        int length=pow(2,n-1);
+        int mid=length/2;
+
+        if(k>mid) return !kthGrammar(n-1,k-mid);
+        return kthGrammar(n-1,k);
+
+        
+    }
+};
+
+// 0 - 2^0  elemnts in a row
+
+// 01 - 2^1
+
+// 0110 - 2^2  - 4 also in this - n/2 elements are str and from n/2 , its NOT op of first n/2 elements
+// 0110 1001
+
+
+// 0110 | 1001
+// => new part is just old part takes "not" operation
+
+
+// so for each string its enough if we find first (2^n)/2 elements only
+
+// if k>n/2 then flip the char 
+
+// 01101001 10010110
+
+
+
+
+// The total length of row n is 2^(n-1).
+// The first half is a copy (with the same pattern) of the previous row.
+// The second half is the inverted version of the previous row.
+// If k <= mid, the answer is the same as the previous row.
+// If k > mid, the answer is the inverse of the previous row’s (k-mid)-th element.
