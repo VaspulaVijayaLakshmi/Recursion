@@ -188,3 +188,85 @@ public:
 };
 
 
+
+
+
+
+
+
+
+
+//tabulation
+
+
+
+
+
+class Solution {
+public:
+    bool palindrome(int i, int j, string&s){
+        while(i<j){
+            if(s[i]==s[j]){
+                i++; j--;
+            }
+            else return false;
+        }
+        return true;
+    }
+
+
+    int minCut(string s) {
+        int n = s.size();
+        vector<int>dp(n+1, 0);
+
+        for(int i=n-1; i>=0; i--){
+            int ans = 1e9;
+            for(int j=i; j<n; j++){
+                
+                if(palindrome(i, j, s)){
+                    int cost = 1+dp[j+1];
+                    ans = min(ans, cost);
+                }
+            }
+
+            dp[i] = ans;
+        }
+
+        return dp[0]-1;
+    }
+};
+
+
+
+
+
+
+ Example:
+Let’s take s = "aab"
+So n = 3, and dp is a size-4 array.
+
+Step-by-step:
+i = 2: (s[2] = 'b')
+j = 2: s[2..2] = "b" is a palindrome 
+→ cost = 1 + dp[3] = 1 + 0 = 1
+→ dp[2] = 1
+
+i = 1: (s[1] = 'a')
+j = 1: s[1..1] = "a" is a palindrome 
+→ cost = 1 + dp[2] = 1 + 1 = 2
+
+j = 2: s[1..2] = "ab" - not palindrome
+
+→ Minimum = 2, so dp[1] = 2
+
+i = 0: (s[0] = 'a')
+j = 0: s[0..0] = "a" is palindrome 
+→ cost = 1 + dp[1] = 1 + 2 = 3
+
+j = 1: s[0..1] = "aa" is palindrome 
+→ cost = 1 + dp[2] = 1 + 1 = 2 ← better
+
+j = 2: s[0..2] = "aab"  not palindrome
+
+→ Minimum = 2, so dp[0] = 2
+
