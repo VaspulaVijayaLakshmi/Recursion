@@ -18,6 +18,8 @@ public:
 
     void partition(string s,int i,string str,vector<string> temp){
 
+        // why the condition, when the size hits we can push to res.
+        // because all the substring should be a palindrome.  
         if(i==s.size()){
             res.push_back(temp);
             return;
@@ -29,6 +31,7 @@ public:
 
             if(isPalindrome(sub)){
 
+             // push this into tmp substring, but towards end, this partition did not result in palindrome., so we pop and try to move forward towards another partitions
               temp.push_back(sub);
               partition(s,j+1,str,temp);
               temp.pop_back();
