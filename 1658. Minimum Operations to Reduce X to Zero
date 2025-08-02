@@ -72,4 +72,41 @@
 // we focus on finding the longest subarray in the middle. One main thing to note is that our subarray should sum to sum - x (where sum is the sum of all elements in our array).
 
 
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        
+        int sum=0;
+        for(int i=0;i<nums.size();i++)
+         sum+=nums[i];
+
+
+        int r=0,l=0;
+        int currSum=0;
+        int maxLen=-1;
+
+        while(r<nums.size()){
+
+            currSum+=nums[r];
+
+            while(l<=r && currSum>sum-x)
+                currSum=currSum-nums[l++];
+
+            if(currSum==sum-x) maxLen= max(maxLen,r-l+1); 
+            r++;   
+
+        } 
+
+
+        // maxELements would be no.of elements we want to keep
+        // we need to return the no of elemnts to be removed 
+
+        return maxLen == -1 ? -1 : nums.size()-maxLen;
+
+    }
+
+};
+
+
 //  https://leetcode.com/problems/minimum-operations-to-reduce-x-to-zero/solutions/2136570/change-your-perspective-java-explanation/
