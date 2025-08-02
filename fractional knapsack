@@ -4,6 +4,9 @@ https://www.naukri.com/code360/problems/fractional-knapsack_975286?leftPanelTabV
 
 
 
+value_per_weight = value / weight;
+
+
 // for fractonal knasack we need to sort by value:weight arr
 
 // what if we sort array by value ?
